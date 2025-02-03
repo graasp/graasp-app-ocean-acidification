@@ -48,13 +48,13 @@ export const MARKER_BORDER_WIDTH = 6;
 export const MARKER_WIDTH = 0.035;
 export const PH_SCALE_POINTS = [
   { pH: 7.87, co2: 600 },
-  { pH: 7.9225, co2: 550 },
-  { pH: 7.975, co2: 500 },
-  { pH: 8.0275, co2: 450 },
+  { pH: 7.92, co2: 550 },
+  { pH: 7.98, co2: 500 },
+  { pH: 8.03, co2: 450 },
   { pH: 8.08, co2: 400 },
-  { pH: 8.1325, co2: 350 },
-  { pH: 8.185, co2: 300 },
-  { pH: 8.2375, co2: 250 },
+  { pH: 8.13, co2: 350 },
+  { pH: 8.19, co2: 300 },
+  { pH: 8.24, co2: 250 },
   { pH: 8.29, co2: 200 },
 ];
 export const PH_SCALE_MIN = Math.min(...PH_SCALE_POINTS.map(({ pH }) => pH));

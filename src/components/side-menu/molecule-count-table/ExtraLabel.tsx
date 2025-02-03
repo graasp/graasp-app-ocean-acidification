@@ -25,8 +25,9 @@ const ExtraLabel = (): JSX.Element => {
   const co2OnScale =
     (pHCarbonDioxide - CO2_SLIDER_MIN) / (CO2_SLIDER_MAX - CO2_SLIDER_MIN);
   const correspondingPh = PH_SCALE_MAX - co2OnScale * PH_SCALE_RANGE;
-  const roundedPh =
-    Math.round((correspondingPh + Number.EPSILON) * 10000) / 10000;
+  const roundedPh = (
+    Math.round((correspondingPh + Number.EPSILON) * 100) / 100
+  ).toFixed(2);
 
   return <Box sx={styles}>pH (={roundedPh})</Box>;
 };
