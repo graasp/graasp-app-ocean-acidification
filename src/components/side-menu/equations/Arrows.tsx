@@ -1,5 +1,6 @@
 import { Box } from '@mui/material';
 
+import ArrowsSeparator from './ArrowsSeparator';
 import LeftArrow from './LeftArrow';
 import RightArrow from './RightArrow';
 
@@ -20,6 +21,7 @@ const Arrows = ({
       leftArrowActive={leftArrowActive}
       isInactive={isInactive}
     />
+    <ArrowsSeparator />
     <LeftArrow
       rightArrowActive={rightArrowActive}
       leftArrowActive={leftArrowActive}

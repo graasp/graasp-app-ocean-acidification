@@ -8,7 +8,7 @@ import {
 
 const container = {
   display: 'flex',
-  alignItems: 'center',
+  alignItems: 'flex-start',
   width: 'max-content',
 };
 
@@ -20,9 +20,8 @@ const horizontalLine = {
 const leftArrow = {
   width: 0,
   height: 0,
-  borderTop: '4px solid transparent',
-  borderBottom: '4px solid transparent',
-  borderRight: '4px solid',
+  borderBottom: '5px solid transparent',
+  borderRight: '5px solid',
 };
 
 interface Props {
