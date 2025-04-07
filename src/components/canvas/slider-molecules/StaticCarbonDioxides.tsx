@@ -1,7 +1,10 @@
 import { useContext } from 'react';
 import { Group } from 'react-konva';
 
-import { STATIC_CO2_DISTRIBUTION } from '@/constants/slider-molecules/static-carbon-dioxides';
+import {
+  BACKGROUND_CO2_DISTRIBUTION,
+  STATIC_CO2_DISTRIBUTION,
+} from '@/constants/slider-molecules/static-carbon-dioxides';
 import { AppSettingsContext } from '@/contexts/AppSettingsProvider';
 import { computeStaticDistribution } from '@/utils/molecules';
 
@@ -15,6 +18,7 @@ const StaticCarbonDioxides = (): JSX.Element => {
   const currentDistribution = computeStaticDistribution(
     STATIC_CO2_DISTRIBUTION,
     sliderCarbonDioxide,
+    BACKGROUND_CO2_DISTRIBUTION,
   );
 
   return (

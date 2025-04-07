@@ -32,3 +32,25 @@ const SHUFFLED_DISTRIBUTION = shuffle(INITIAL_DISTRIBUTION);
 export const STATIC_CO2_DISTRIBUTION = SHUFFLED_DISTRIBUTION.map(
   (coordinates) => ({ coordinates, show: false }),
 );
+
+const BACKGROUND_CO2_NUM_ROWS = 4;
+const TOTAL_BACKGROUND_CO2 = 12;
+const BACKGROUND_CO2_PER_ROW = TOTAL_BACKGROUND_CO2 / BACKGROUND_CO2_NUM_ROWS;
+
+const BACKGROUND_DISTRIBUTION = new Array(BACKGROUND_CO2_NUM_ROWS)
+  .fill(null)
+  .map((emptyElement, index) =>
+    distributeMoleculesOnRow(
+      BACKGROUND_CO2_PER_ROW,
+      BACKGROUND_CO2_NUM_ROWS,
+      STATIC_CO2_MIN_Y,
+      STATIC_CO2_MAX_Y,
+      index,
+    ),
+  )
+  .flat();
+
+const SHUFFLED_BACKGROUND_DISTRIBUTION = shuffle(BACKGROUND_DISTRIBUTION);
+export const BACKGROUND_CO2_DISTRIBUTION = SHUFFLED_BACKGROUND_DISTRIBUTION.map(
+  (coordinates) => ({ coordinates, show: true }),
+);

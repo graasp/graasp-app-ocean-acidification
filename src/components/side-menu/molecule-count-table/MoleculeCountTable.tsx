@@ -5,7 +5,10 @@ import { Box } from '@mui/material';
 import { t } from 'i18next';
 
 import { CYCLES } from '@/constants/motion/continuous-mode-cycles';
-import { STATIC_CO2_DISTRIBUTION } from '@/constants/slider-molecules/static-carbon-dioxides';
+import {
+  BACKGROUND_CO2_DISTRIBUTION,
+  STATIC_CO2_DISTRIBUTION,
+} from '@/constants/slider-molecules/static-carbon-dioxides';
 import { AppSettingsContext } from '@/contexts/AppSettingsProvider';
 import { computeStaticDistribution } from '@/utils/molecules';
 import { AllArrowsState } from '@/utils/molecules/types';
@@ -38,6 +41,7 @@ const MoleculeCountTable = ({ arrowsState }: Props): JSX.Element => {
   const staticCarbonDioxides = computeStaticDistribution(
     STATIC_CO2_DISTRIBUTION,
     sliderCarbonDioxide,
+    BACKGROUND_CO2_DISTRIBUTION,
   );
 
   const continuousCyclesCount = countContinuousCycles(CYCLES, intervalCount);
