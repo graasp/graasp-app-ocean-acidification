@@ -8,17 +8,13 @@ import Carbon from './atoms/Carbon';
 import Hydrogen from './atoms/Hydrogen';
 import Oxygen from './atoms/Oxygen';
 
-const defaultProps = {
-  rotation: 0,
-};
-
 interface Props {
   x: number;
   y: number;
   rotation?: number;
 }
 
-const Bicarbonate = ({ x, y, rotation }: Props): JSX.Element => {
+const Bicarbonate = ({ x, y, rotation = 0 }: Props): JSX.Element => {
   const { state } = useContext(AppSettingsContext);
   const { dimensions, mode } = state;
   const { height } = dimensions;
@@ -35,7 +31,5 @@ const Bicarbonate = ({ x, y, rotation }: Props): JSX.Element => {
     </Group>
   );
 };
-
-Bicarbonate.defaultProps = defaultProps;
 
 export default Bicarbonate;

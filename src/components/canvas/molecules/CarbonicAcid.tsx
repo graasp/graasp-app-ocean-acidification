@@ -8,16 +8,13 @@ import Carbon from './atoms/Carbon';
 import Hydrogen from './atoms/Hydrogen';
 import Oxygen from './atoms/Oxygen';
 
-const defaultProps = {
-  rotation: 0,
-};
 interface Props {
   x: number;
   y: number;
   rotation?: number;
 }
 
-const CarbonicAcid = ({ x, y, rotation }: Props): JSX.Element | null => {
+const CarbonicAcid = ({ x, y, rotation = 0 }: Props): JSX.Element | null => {
   const { state } = useContext(AppSettingsContext);
   const { dimensions, mode } = state;
   const { height } = dimensions;
@@ -35,7 +32,5 @@ const CarbonicAcid = ({ x, y, rotation }: Props): JSX.Element | null => {
     </Group>
   );
 };
-
-CarbonicAcid.defaultProps = defaultProps;
 
 export default CarbonicAcid;

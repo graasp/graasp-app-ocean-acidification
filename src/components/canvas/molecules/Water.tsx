@@ -7,16 +7,13 @@ import { createWater } from '@/utils/molecules/';
 import Hydrogen from './atoms/Hydrogen';
 import Oxygen from './atoms/Oxygen';
 
-const defaultProps = {
-  rotation: 0,
-};
 interface Props {
   x: number;
   y: number;
   rotation?: number;
 }
 
-const Water = ({ x, y, rotation }: Props): JSX.Element => {
+const Water = ({ x, y, rotation = 0 }: Props): JSX.Element => {
   const { state } = useContext(AppSettingsContext);
   const { dimensions, mode } = state;
   const { height } = dimensions;
@@ -30,7 +27,5 @@ const Water = ({ x, y, rotation }: Props): JSX.Element => {
     </Group>
   );
 };
-
-Water.defaultProps = defaultProps;
 
 export default Water;
