@@ -2,6 +2,7 @@ import { appSettingsActionType } from '@/reducers/app-settings';
 import {
   INCREMENT_INTERVAL_COUNT,
   RESET_SETTINGS,
+  SET_ALLOW_VARIABLE_CHANGE,
   SET_ANIMATION_INDEX,
   SET_CARBON_DIOXIDE_CHANGE,
   SET_DIMENSIONS,
@@ -13,6 +14,7 @@ import {
   SET_PH_CARBON_DIOXIDE,
   SET_SLIDER_CARBON_DIOXIDE,
   SET_YEAR,
+  STOP_ANIMATION,
   TOGGLE_ANIMATION_IN_MOTION,
   TOGGLE_PLAY,
   TOGGLE_SHOW_SCALE,
@@ -108,5 +110,16 @@ export const setCarbonDioxideChange = (
 
 export const setYear = (payload: string): appSettingsActionType => ({
   type: SET_YEAR,
+  payload,
+});
+
+export const stopAnimation = (): appSettingsActionType => ({
+  type: STOP_ANIMATION,
+});
+
+export const setAllowVariableChange = (
+  payload: boolean,
+): appSettingsActionType => ({
+  type: SET_ALLOW_VARIABLE_CHANGE,
   payload,
 });

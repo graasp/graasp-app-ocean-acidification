@@ -1,16 +1,23 @@
-import { useContext, useEffect, useState } from 'react';
+import {
+  Dispatch,
+  SetStateAction,
+  useContext,
+  useEffect,
+  useState,
+} from 'react';
 
 import { StopCircleOutlined } from '@mui/icons-material';
 import { Box, IconButton, Tooltip } from '@mui/material';
 import { red } from '@mui/material/colors';
 
 import {
+  setAllowVariableChange,
   setDisequilibriumCyclesBeginAt,
   setDistribution,
   setEquilibriumCarbonDioxide,
   setPHCarbonDioxide,
   setSliderCarbonDioxide,
-  togglePlay,
+  stopAnimation,
 } from '@/actions/app-settings';
 import { RESPONSIVE_BUTTON_STYLES } from '@/constants/css';
 import { MOTION_INTERVAL } from '@/constants/motion/motion-intervals';
@@ -28,8 +35,12 @@ const container = {
   alignItems: 'center',
 };
 
-const Stop = (): JSX.Element => {
-  const [disabled, setDisabled] = useState(false);
+interface Props {
+  stopDisabled: boolean;
+  setStopDisabled: Dispatch<SetStateAction<boolean>>;
+}
+
+const Stop = ({ stopDisabled, setStopDisabled }: Props): JSX.Element => {
   const [stopAtInterval, setStopAtInterval] = useState(0);
   const { state, dispatch } = useContext(AppSettingsContext);
   const {
@@ -41,10 +52,10 @@ const Stop = (): JSX.Element => {
   } = state;
   const inEquilibrium = sliderCarbonDioxide === equilibriumCarbonDioxide;
 
-  const styles = { color: disabled ? EMPTY_STRING : red[800] };
+  const styles = { color: stopDisabled ? EMPTY_STRING : red[800] };
 
   const onStop = (): void => {
-    setDisabled(true);
+    setStopDisabled(true);
     let stopAt =
       MOTION_INTERVAL * (Math.floor(intervalCount / MOTION_INTERVAL) + 1);
     const disequilibriumCyclesStopAt =
@@ -60,32 +71,40 @@ const Stop = (): JSX.Element => {
       const initialCarbonDioxide =
         PERIODS.find((period) => period.year === year)?.co2 || DEFAULT_CO2;
 
-      setDisabled(false);
-      dispatch(togglePlay());
+      setStopDisabled(false);
+      dispatch(stopAnimation());
       dispatch(setDisequilibriumCyclesBeginAt(stopAtInterval));
       dispatch(setEquilibriumCarbonDioxide(initialCarbonDioxide));
       dispatch(setSliderCarbonDioxide(initialCarbonDioxide));
       dispatch(setPHCarbonDioxide(initialCarbonDioxide));
+      dispatch(setAllowVariableChange(true));
       const equilibriumDistribution = computeEquilibriumDistribution(
         ACTIVE_CO2_DISTRIBUTION,
         initialCarbonDioxide,
       );
       dispatch(setDistribution(equilibriumDistribution));
     }
-  }, [intervalCount, stopAtInterval, dispatch, sliderCarbonDioxide, year]);
+  }, [
+    intervalCount,
+    stopAtInterval,
+    dispatch,
+    sliderCarbonDioxide,
+    year,
+    setStopDisabled,
+  ]);
 
   return (
     <Box sx={container}>
       <Tooltip title="Stop">
         <span>
-          <IconButton onClick={onStop} disabled={disabled}>
+          <IconButton onClick={onStop} disabled={stopDisabled}>
             <StopCircleOutlined
               sx={{ ...styles, ...RESPONSIVE_BUTTON_STYLES }}
             />
           </IconButton>
         </span>
       </Tooltip>
-      {disabled && <ProgressBar />}
+      {stopDisabled && <ProgressBar />}
     </Box>
   );
 };

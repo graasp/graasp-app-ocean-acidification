@@ -8,6 +8,7 @@ import { ActiveMoleculesType } from '@/utils/molecules/types';
 import {
   INCREMENT_INTERVAL_COUNT,
   RESET_SETTINGS,
+  SET_ALLOW_VARIABLE_CHANGE,
   SET_ANIMATION_INDEX,
   SET_CARBON_DIOXIDE_CHANGE,
   SET_DIMENSIONS,
@@ -19,6 +20,7 @@ import {
   SET_PH_CARBON_DIOXIDE,
   SET_SLIDER_CARBON_DIOXIDE,
   SET_YEAR,
+  STOP_ANIMATION,
   TOGGLE_ANIMATION_IN_MOTION,
   TOGGLE_PLAY,
   TOGGLE_SHOW_SCALE,
@@ -32,6 +34,7 @@ export interface appSettingsType {
   dimensions: Dimensions;
   intervalCount: number;
   isPlaying: boolean;
+  allowVariableChange: boolean;
   mode: string;
   animationIndex: number;
   animationInMotion: boolean;
@@ -55,6 +58,7 @@ export const initialAppSettings = {
   dimensions: { width: 0, height: 0 },
   intervalCount: 0,
   isPlaying: false,
+  allowVariableChange: true,
   mode: SEQUENTIAL,
   animationIndex: 0,
   animationInMotion: false,
@@ -79,18 +83,11 @@ export const appSettingsReducer = (
   switch (type) {
     case SET_DIMENSIONS:
       return { ...state, dimensions: payload };
-    case TOGGLE_PLAY: {
-      const { isPlaying, intervalCount } = state;
-      let excessIntervals = 0;
-      if (isPlaying && intervalCount % MOTION_INTERVAL !== 0) {
-        excessIntervals = intervalCount % MOTION_INTERVAL;
-      }
+    case TOGGLE_PLAY:
       return {
         ...state,
         isPlaying: !state.isPlaying,
-        intervalCount: intervalCount - excessIntervals,
       };
-    }
     case INCREMENT_INTERVAL_COUNT:
       return { ...state, intervalCount: state.intervalCount + 1 };
     case RESET_SETTINGS:
@@ -139,6 +136,20 @@ export const appSettingsReducer = (
     case SET_YEAR: {
       return { ...state, year: payload };
     }
+    case STOP_ANIMATION: {
+      const { isPlaying, intervalCount } = state;
+      let excessIntervals = 0;
+      if (isPlaying && intervalCount % MOTION_INTERVAL !== 0) {
+        excessIntervals = intervalCount % MOTION_INTERVAL;
+      }
+      return {
+        ...state,
+        isPlaying: false,
+        intervalCount: intervalCount - excessIntervals,
+      };
+    }
+    case SET_ALLOW_VARIABLE_CHANGE:
+      return { ...state, allowVariableChange: payload };
     default:
       return state;
   }

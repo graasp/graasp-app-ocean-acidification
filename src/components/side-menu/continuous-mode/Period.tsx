@@ -51,7 +51,7 @@ const radioButtonContainer = { display: 'flex', flexDirection: 'column' };
 
 const Period = (): JSX.Element => {
   const { state, dispatch } = useContext(AppSettingsContext);
-  const { isPlaying, year: currentYear } = state;
+  const { isPlaying, allowVariableChange, year: currentYear } = state;
 
   const onChange = (event: React.ChangeEvent<HTMLInputElement>): void => {
     const newYear = (event.target as HTMLInputElement).value;
@@ -82,7 +82,7 @@ const Period = (): JSX.Element => {
                   {year}
                 </Typography>
               }
-              disabled={isPlaying}
+              disabled={isPlaying || !allowVariableChange}
             />
             <Typography
               sx={{ ...extraLabelText, ...RESPONSIVE_CAPTION_STYLES }}
