@@ -30,6 +30,7 @@ const CarbonDioxideSlider = (): JSX.Element => {
   const { state, dispatch } = useContext(AppSettingsContext);
   const {
     isPlaying,
+    allowVariableChange,
     sliderCarbonDioxide,
     equilibriumCarbonDioxide,
     activeMoleculeDistribution,
@@ -62,7 +63,7 @@ const CarbonDioxideSlider = (): JSX.Element => {
           min={CO2_SLIDER_MIN}
           max={CO2_SLIDER_MAX}
           marks={CO2_SLIDER_MARKS}
-          disabled={isPlaying}
+          disabled={isPlaying || !allowVariableChange}
           step={CO2_SLIDER_STEP}
           onChange={onChange}
           value={sliderCarbonDioxide}

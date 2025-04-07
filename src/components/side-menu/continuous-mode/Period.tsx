@@ -51,7 +51,12 @@ const radioButtonContainer = { display: 'flex', flexDirection: 'column' };
 
 const Period = (): JSX.Element => {
   const { state, dispatch } = useContext(AppSettingsContext);
-  const { isPlaying, year: currentYear } = state;
+  const {
+    isPlaying,
+    allowVariableChange,
+    year: currentYear,
+    sliderCarbonDioxide,
+  } = state;
 
   const onChange = (event: React.ChangeEvent<HTMLInputElement>): void => {
     const newYear = (event.target as HTMLInputElement).value;
@@ -68,10 +73,17 @@ const Period = (): JSX.Element => {
     dispatch(setDistribution(equilibriumDistribution));
   };
 
+  const yearCarbonDioxide = PERIODS.filter(
+    ({ year }) => year === currentYear,
+  )[0].co2;
+
+  const yearValue =
+    sliderCarbonDioxide === yearCarbonDioxide ? currentYear : null;
+
   return (
     <Box className="continuous-mode-6">
       <SideMenuHeader label={t('Year')} />
-      <RadioGroup sx={container} value={currentYear} onChange={onChange}>
+      <RadioGroup sx={container} value={yearValue} onChange={onChange}>
         {PERIODS.map(({ year, co2 }) => (
           <Box key={year} sx={radioButtonContainer}>
             <FormControlLabel
@@ -82,7 +94,7 @@ const Period = (): JSX.Element => {
                   {year}
                 </Typography>
               }
-              disabled={isPlaying}
+              disabled={isPlaying || !allowVariableChange}
             />
             <Typography
               sx={{ ...extraLabelText, ...RESPONSIVE_CAPTION_STYLES }}

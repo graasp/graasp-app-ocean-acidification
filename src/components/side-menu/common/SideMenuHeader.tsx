@@ -26,8 +26,8 @@ interface Props {
 
 const SideMenuHeader = ({
   label,
-  showScale,
-  showTooltip,
+  showScale = false,
+  showTooltip = false,
 }: Props): JSX.Element => (
   <Box sx={container}>
     <Typography variant="body2" fontWeight={600}>
@@ -41,7 +41,5 @@ const SideMenuHeader = ({
     )}
   </Box>
 );
-
-SideMenuHeader.defaultProps = { showScale: false, showTooltip: false };
 
 export default SideMenuHeader;

@@ -3,6 +3,7 @@
     "Sequential": "Sequential",
     "Continuous": "Continuous",
     "Play": "Play",
+    "Pause": "Pause",
     "Reset": "Reset",
     "Next": "Next",
     "Back": "Back",

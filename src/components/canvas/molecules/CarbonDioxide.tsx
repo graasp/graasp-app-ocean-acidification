@@ -7,16 +7,13 @@ import { createCarbonDioxide } from '@/utils/molecules/';
 import Carbon from './atoms/Carbon';
 import Oxygen from './atoms/Oxygen';
 
-const defaultProps = {
-  rotation: 0,
-};
 interface Props {
   x: number;
   y: number;
   rotation?: number;
 }
 
-const CarbonDioxide = ({ x, y, rotation }: Props): JSX.Element => {
+const CarbonDioxide = ({ x, y, rotation = 0 }: Props): JSX.Element => {
   const { state } = useContext(AppSettingsContext);
   const { dimensions, mode } = state;
   const { height } = dimensions;
@@ -30,7 +27,5 @@ const CarbonDioxide = ({ x, y, rotation }: Props): JSX.Element => {
     </Group>
   );
 };
-
-CarbonDioxide.defaultProps = defaultProps;
 
 export default CarbonDioxide;

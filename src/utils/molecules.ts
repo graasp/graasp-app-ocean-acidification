@@ -95,14 +95,16 @@ export const determineCo2EndY = (startY: number): number => {
 export const computeStaticDistribution = (
   distribution: StaticCarbonDioxidesType[],
   sliderValue: number,
+  backgroundDistribution: StaticCarbonDioxidesType[],
 ): StaticCarbonDioxidesType[] => {
   const newIndex =
     ((sliderValue - CO2_SLIDER_MIN) / CO2_SLIDER_STEP) *
     STATIC_CO2_ADDED_PER_INCREMENT;
-  return distribution.map(({ coordinates }, index) => {
+  const updatedDistribution = distribution.map(({ coordinates }, index) => {
     if (index < newIndex) return { coordinates, show: true };
     return { coordinates, show: false };
   });
+  return [...updatedDistribution, ...backgroundDistribution];
 };
 
 export const computeEquilibriumDistribution = (

@@ -16,6 +16,7 @@ import { SEQUENTIAL } from '@/constants/strings';
 import { AppSettingsContext } from '../../contexts/AppSettingsProvider';
 import Tours from './Tours';
 import CloseMenu from './controls/CloseMenu';
+import Pause from './controls/Pause';
 import Play from './controls/Play';
 import Reset from './controls/Reset';
 import Rewind from './controls/Rewind';
@@ -45,6 +46,7 @@ const centerContainer = {
 
 const Controls = ({ setShowSideMenu }: Props): JSX.Element => {
   const [canRewind, setCanRewind] = useState(false);
+  const [stopDisabled, setStopDisabled] = useState(false);
   const applicationInterval = useRef<ReturnType<typeof setInterval>>();
   const { dispatch, state } = useContext(AppSettingsContext);
   const { isPlaying, mode } = state;
@@ -61,6 +63,10 @@ const Controls = ({ setShowSideMenu }: Props): JSX.Element => {
     } else if (isPlaying) {
       startInterval();
     }
+
+    return () => {
+      clearInterval(applicationInterval.current);
+    };
   }, [isPlaying, dispatch]);
 
   return (
@@ -73,7 +79,16 @@ const Controls = ({ setShowSideMenu }: Props): JSX.Element => {
           <Rewind canRewind={canRewind} setCanRewind={setCanRewind} />
         )}
         {modeSequential && <SlowMotion setCanRewind={setCanRewind} />}
-        {!modeSequential && (!isPlaying ? <Play /> : <Stop />)}
+        {!modeSequential &&
+          (!isPlaying ? (
+            <Play />
+          ) : (
+            <Stop
+              stopDisabled={stopDisabled}
+              setStopDisabled={setStopDisabled}
+            />
+          ))}
+        {!modeSequential && <Pause stopDisabled={stopDisabled} />}
         <Reset />
       </Box>
       <Tours modeSequential={modeSequential} />

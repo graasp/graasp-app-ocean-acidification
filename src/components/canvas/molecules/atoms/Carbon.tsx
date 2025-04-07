@@ -9,17 +9,12 @@ import {
 import { SEQUENTIAL } from '@/constants/strings';
 import { AppSettingsContext } from '@/contexts/AppSettingsProvider';
 
-const defaultProps = {
-  x: 0,
-  y: 0,
-};
-
 interface Props {
   x?: number;
   y?: number;
 }
 
-const Carbon = ({ x, y }: Props): JSX.Element => {
+const Carbon = ({ x = 0, y = 0 }: Props): JSX.Element => {
   const { state } = useContext(AppSettingsContext);
   const { dimensions, mode } = state;
   const { height } = dimensions;
@@ -28,7 +23,5 @@ const Carbon = ({ x, y }: Props): JSX.Element => {
 
   return <Circle fill={CARBON_FILL} radius={radius * height} x={x} y={y} />;
 };
-
-Carbon.defaultProps = defaultProps;
 
 export default Carbon;
